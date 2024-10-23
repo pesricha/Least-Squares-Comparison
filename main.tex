@@ -14,6 +14,9 @@
 \usepackage{etoolbox}
 \usepackage{enumerate}
 \usepackage{listings}
+\usepackage{multicol}
+\usepackage{enumitem}
+\setlist{nolistsep}
 \lstset{
     language=Python,           % Set the language of the code
     basicstyle=\footnotesize\ttfamily,
@@ -117,7 +120,7 @@ A = \begin{pmatrix}
 \]
 (a) Consider a computer which rounds all computed results to five digits of relative accuracy. Using either Classical Gram-Schmidt (CGS) or Modified Gram-Schmidt (MGS), compute the matrix $Q$ associated with the QR decomposition of $A$ assuming you are working on such a computer.
 
-(b) Apply Householder’s method to compute the QR factorization of $A$ using the same 5-digit arithmetic. Compare the matrices $Q_1$ obtained in (a) and (b), and comment on the orthogonality of the $Q$ matrix.}
+(b) Apply Householder’s method to compute the QR factorization of $A$ using the same 5-digit arithmetic. \\ Compare the matrices $Q's$ obtained in (a) and (b), and comment on the orthogonality of the $Q$ matrix.}
 
 \end{question}
 
@@ -136,8 +139,126 @@ In this problem, you will test different algorithms for the least squares proble
 
 Accept the MATLAB/Octave/Python least squares solution (given by "backslash" \( \backslash \) in MATLAB) as the truth. Display and plot the approximation given by this "true" solution and compare it with \( f(t) \). Compare with the solutions given by the 4 methods described above. Explain the results.
 }
-    
-\end{question} {}
+
+To explain our findings, we will calculate 2-norm relative condition numbers 
+describing the sensitivities of y and x to perturbations in b and A.
+
+\begin{center}
+    Data : A, b; Solutions = x,y;
+    \[
+        \begin{array}{c|c|c}
+          & y & x \\
+        \hline
+        b & \frac{1}{\cos\theta} & \frac{\kappa(A)}{\eta\cos\theta} \\
+        \hline
+        A & \frac{\kappa(A)}{\cos\theta} & \kappa(A) + \frac{\kappa(A)^2 \tan\theta}{\eta}
+        \end{array}
+        \quad = \quad
+        \begin{array}{c|c|c}
+          & y & x \\
+        \hline
+        b & 1.000000 \times 10^{0} & 6.187516 \times 10^{3} \\
+        \hline
+        A & 3.016178 \times 10^{8} & 3.036732 \times 10^{8} \\
+        \end{array}
+    \]
+
+\end{center}
+
+
+\textbf{Notation:} In our problem , $b \equiv f$, $x \equiv c$ and for a specific algorithm. The problem we want to solve is \fbox{$Ax = b \equiv Ac = f$}. For a specific algo, the predicted outputs are represented by $f_{algo},\ c_{algo}$ which represents the predicted value $f_{pred}$ and predicted coefficients of polynomial $c_{algo}$ for the algo.
+
+We will write the methodologies used for each computation. \\
+\hrule
+\begin{multicols}{2}
+
+\begin{enumerate}
+    \item \fbox{\textbf{QR using Modified Gram-Schmidt}}
+    \begin{align*}
+        &Ac = f \\
+        &QRc = f \\
+        &Rc = Q^{T}f \\
+        &\text{Use back-substitution.}
+    \end{align*}
+
+    \item \fbox{\textbf{QR using Householder}}
+    \begin{align*}
+        &\text{Compute Householder to get } R \text{ and } Q^{T}f \\
+        &Rc = Q^{T}f \\
+        &\text{Use back-substitution to get } c.
+    \end{align*}
+\end{enumerate}
+
+\columnbreak
+
+\begin{enumerate}
+    \setcounter{enumi}{2}
+    \item \fbox{\textbf{SVD using $np.linalg.svd$}}
+    \begin{align*}
+        &\text{Compute SVD.} \\
+        &\text{Compute } \hat{U^{T}}b. \\
+        &\text{Solve for } \tilde{w} \text{ in } \hat{\Sigma} \tilde{w} = \hat{U^{T}} b. \\
+        &\text{Solve for } x \text{ in } V^T x = \tilde{w}.
+    \end{align*}
+
+    \item \fbox{\textbf{Normal Equations (MATLAB \textbackslash)}}
+    \begin{align*}
+        &A^T A x = A^T b \\
+        &\text{In MATLAB, use the $\backslash$ command.} 
+    \end{align*}
+\end{enumerate}
+
+\end{multicols}
+
+\hrule
+
+True solutions are obtained by using MATLAB $\backslash$ command for the equation \fbox{$Ac = f$}. \\
+
+We will now plot the outputs for each of the methods. Note machine epsilon for the computer used is \fbox{$\epsilon_{m} \approx 2.22 \times 10 ^ {-16}$}
+\begin{figure}[h!]
+    \centering
+    \begin{subfigure}[b]{0.8\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{}
+        \caption{Caption for Image 1}
+        \label{fig:image1}
+    \end{subfigure}
+
+    \begin{subfigure}[b]{0.8\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{image2.jpg}
+        \caption{Caption for Image 2}
+        \label{fig:image2}
+    \end{subfigure}
+
+    \begin{subfigure}[b]{0.8\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{image3.jpg}
+        \caption{Caption for Image 3}
+        \label{fig:image3}
+    \end{subfigure}
+
+    \begin{subfigure}[b]{0.8\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{image4.jpg}
+        \caption{Caption for Image 4}
+        \label{fig:image4}
+    \end{subfigure}
+
+    \begin{subfigure}[b]{0.8\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{image5.jpg}
+        \caption{Caption for Image 5}
+        \label{fig:image5}
+    \end{subfigure}
+
+    \caption{Collection of Images}
+    \label{fig:collection}
+\end{figure}
+
+\end{question}
+
+
 
 \end{document}
 
