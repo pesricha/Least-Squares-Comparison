@@ -27,7 +27,8 @@ where $A$ is the design matrix, $c$ is the vector of polynomial coefficients, an
    Using SVD, $A$ is decomposed as $A = U \Sigma V^T$. The least squares solution is obtained by solving the system with $\Sigma$ and $V$.
 
 4. **Normal Equations**  
-   Using normal equations, we solve $A^T A c = A^T f$, which is computed directly with MATLAB’s backslash operator ($\backslash$), accepted here as the "true" least squares solution.
+   Using normal equations, we solve $A^T A c = A^T f$, which is computed directly with MATLAB’s backslash operator ($\backslash$).
+   
 
 ## Error Analysis
 
