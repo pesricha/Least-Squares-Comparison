@@ -19,7 +19,7 @@
 \usepackage{enumitem}
 \setlist{nolistsep}
 \lstset{
-    language=Python,           % Set the language of the code
+    language=Python,        % Set the language of the code
     basicstyle=\footnotesize\ttfamily,
     keywordstyle=\color{blue}, % Set color for keywords
     commentstyle=\color{gray}, % Set color for comments
@@ -418,7 +418,7 @@ From the table, it is evident that Householder and SVD approximate the true valu
 
     Depending on value of $\theta$ and $\eta$,  $\frac{||\tilde{x}-x||}{||x||}$ can be $\kappa(A)^2$ or $\kappa(A)$.
 
-    Thus the behaviour of normal equations is explained by $\kappa(A)^2 \approx 10^16$ which amplifies the error by the given amount.
+    Thus the behaviour of normal equations is explained by $\kappa(A)^2 \approx 10^{16}$ which amplifies the error by the given amount.
 
     Normal equations are typically \textbf{UNSTABLE} for \textbf{ill conditioned problems having close fits}.
 
@@ -427,6 +427,7 @@ From the table, it is evident that Householder and SVD approximate the true valu
 
     \hfill \\
     \hrule
+\lstinputlisting{MGS_VS_HHT.ipynb}
 
 \end{question}
 
